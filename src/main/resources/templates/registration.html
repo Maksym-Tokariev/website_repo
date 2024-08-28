@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="trading">
+    <meta name="author" content="Maksym Tokariev">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <title>Registration</title>
+
+    <style>
+
+        form {
+            margin: 10% 30%;
+        }
+
+        /*body {*/
+        /*    background: linear-gradient(to right, #b5b6b7, #343a40);*/
+        /*}*/
+
+        .btn {
+            margin-left: 3%;
+            margin-top: 1%;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<header>
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+        <a href="home" type="button" class="btn btn-secondary">To main page</a>
+
+        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="home#contacts">Support</a>
+        </nav>
+
+    </div>
+</header>
+
+<form method="#" th:method="POST" th:action="@{/registration}" th:object="${user}">
+
+    <div class="mb-3 mt-3">
+        <label for="username" class="form-label">Name:</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter username" th:field="*{name}" name="name">
+        <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+    </div>
+
+    <div class="mb-3 mt-3">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email" th:field="*{email}" name="email">
+        <p class="alert alert-dark" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+    </div>
+
+    <div class="mb-3">
+        <label for="pwd" class="form-label">Password:</label>
+        <input type="password" class="form-control" id="pwd" placeholder="Create password" th:field="*{password}" name="password">
+        <p class="alert alert-dark" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+    </div>
+
+    <div class="mb-3">
+        <label for="pwd" class="form-label">Confirm password:</label>
+        <input type="password" class="form-control" id="confirm-pwd" placeholder="Confirm password" th:field="*{confirmPassword}" name="password">
+        <p class="alert alert-dark" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></p>
+    </div>
+
+    <div th:if="${UserExistsError}">
+        <div class="alert alert-danger" th:text="${UserExistsError}"></div>
+    </div>
+
+    <div th:if="${confirmPasswordError}">
+        <div class="alert alert-danger" th:text="${confirmPasswordError}"></div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" value="registration">
+        Registration
+    </button>
+    <a type="button" class="btn btn-secondary" href="login">
+        Sign in
+    </a>
+
+</form>
+
+</body>
+</html>
