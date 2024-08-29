@@ -1,8 +1,10 @@
 package ua.trading.tradingwebsite.controllers;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,12 +35,21 @@ public class MainController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("user") User user, Model model) {
+    public String registration(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
 
-//        if (!userService.createUser(user)) {
-//            model.addAttribute("message", "User creation failed");
-//            return "registration";
-//        }
+        if (userService.userExists(user.getEmail())) {
+            model.addAttribute("UserExistsError", "User already exists");
+            return "registration";
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        if (!user.getPassword().equals(user.getConfirmPassword())) {
+            model.addAttribute("confirmPasswordError", "Passwords do not match");
+            return "registration";
+        }
 
         userService.createUser(user);
         return "redirect:/login";
@@ -48,6 +59,7 @@ public class MainController {
     public String login(@ModelAttribute("user") User user, Model model) {
         return "login";
     }
+
 
     @GetMapping("/pricing")
     public String price() {

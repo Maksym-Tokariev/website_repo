@@ -54,5 +54,4 @@ public class SecurityConfig {
         authProvider.setPasswordEncoder(encoder());
         return authProvider;
     }
-
 }
