@@ -54,6 +54,10 @@
         <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
     </div>
 
+    <div th:if="${#messages}">
+        <div class="alert" th:text="${#messages}"></div>
+    </div>
+
     <button type="submit" class="btn btn-primary" value="Sign In">
         Submit
     </button>

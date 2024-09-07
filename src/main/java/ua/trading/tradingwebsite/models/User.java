@@ -3,15 +3,11 @@ package ua.trading.tradingwebsite.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users_t")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class User {
 
     @Id
@@ -33,5 +29,7 @@ public class User {
 
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
+
+    private String activationCode;
 
 }

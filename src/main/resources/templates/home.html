@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -133,17 +134,6 @@
 
     </style>
 
-    <script>
-        var logout = function() {
-            $.post("/logout", function() {
-                $("#user").html('');
-                $(".authenticated").show();
-                $(".unauthenticated").hide();
-            })
-            return true;
-        }
-    </script>
-
 
 </head>
 <body>
@@ -169,12 +159,9 @@
                 <a href="registration" class="btn btn-outline-secondary" role="button">Registration</a>
             </div>
 
-            <!--            <div class="container authenticated">-->
-            <!--                Logged in as: <span id="user"></span>-->
-            <!--                <div>-->
-            <!--                    <button onClick="logout()" class="btn btn-primary">Logout</button>-->
-            <!--                </div>-->
-            <!--            </div>-->
+<!--            <h1 th:inline="text">-->
+<!--                <span th:remove="tag" sec:authentication="name">thymeleaf</span>-->
+<!--            </h1>-->
 
         </div>
     </div>
@@ -190,21 +177,31 @@
                 </div>
 
                 <div class="modal-body">
-                    <form th:method="POST" th:action="@{/registration}" th:object="${user}">
+                    <form th:method="POST" th:action="@{/home}" th:object="${user}">
 
                         <div class="mb-3">
                             <label for="username" class="form-label">Name</label>
                             <input type="text" class="form-control" id="username" placeholder="Enter your name" name="name">
+<!--                            <p class="alert alert-dark" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>-->
                         </div>
 
                         <div class="mb-3 mt-3">
                             <label for="phone-number" class="form-label">Phone number</label>
                             <input type="number" class="form-control" id="phone-number" placeholder="Enter your phone number" name="number">
+<!--                            <p class="alert alert-dark" th:if="${#fields.hasErrors('number')}" th:errors="*{phoneNumber}"></p>-->
                         </div>
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email">
+<!--                            <p class="alert alert-dark" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>-->
+                        </div>
+
+<!--                        <div th:if="${messageError}">-->
+<!--                            <div class="alert alert-danger" th:text="${messageError}"></div>-->
+<!--                        </div>-->
+                        <div th:if="${error}">
+                            <div class="alert alert-danger" th:text="${error}"></div>
                         </div>
 
                         <button type="submit" class="btn btn-primary">
