@@ -50,11 +50,12 @@ public class RegistrationController {
         mailSenderService.sendMail(
                 "paranoid063@gmail.com",
                 "Registration confirm",
-                "Hi"
+                "Hi" + user.getName() + "!"
         );
 
         userService.createUser(user);
-        return "redirect:/login";
+
+        return "redirect:/activate";
     }
 
     @GetMapping("/activate/{code}")
@@ -67,6 +68,12 @@ public class RegistrationController {
             model.addAttribute("message", "Activation failed");
 
         return "login";
+    }
+
+    @GetMapping("/activate")
+    public String welcome(Model model) {
+        model.addAttribute("message", "Check your email address to activate your account");
+        return "activation";
     }
 
     @GetMapping("/login")

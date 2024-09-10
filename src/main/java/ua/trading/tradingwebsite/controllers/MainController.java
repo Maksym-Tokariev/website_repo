@@ -41,12 +41,6 @@ public class MainController {
         return "redirect:/pricing";
     }
 
-    @GetMapping("/welcome")
-    public String welcome(Model model) {
-        model.addAttribute("message", "Welcome");
-        return "welcome";
-    }
-
     @GetMapping("/pricing")
     public String price() {
         return "pricing";

@@ -32,4 +32,6 @@ public class User {
 
     private String activationCode;
 
+    private Role role = Role.USER;
+
 }

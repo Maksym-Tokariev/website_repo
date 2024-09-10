@@ -28,7 +28,13 @@ public class SecurityConfig {
 
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/home", "/registration", "/pricing", "/activate/*")
+                        .requestMatchers(
+                                "/home",
+                                "/registration",
+                                "/pricing",
+                                "/activate",
+                                "/activate/*"
+                        )
                         .permitAll()
                         .anyRequest()
                         .authenticated()

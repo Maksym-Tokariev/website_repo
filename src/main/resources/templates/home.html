@@ -132,6 +132,10 @@
             margin: 0 auto;
         }
 
+        #user_info {
+            margin-right: 2%;
+        }
+
     </style>
 
 
@@ -152,16 +156,32 @@
             </div>
 
             <div class="btn" id="sign-in-btn">
-                <a href="login" class="btn btn-outline-secondary" role="button">Sign in</a>
+                <a href="login" class="btn btn-outline-secondary" role="button" sec:authorize="!isAuthenticated()">Sign in</a>
             </div>
 
-            <div class="btn" id="sign-out-btn" >
-                <a href="registration" class="btn btn-outline-secondary" role="button">Registration</a>
+            <div class="btn" id="reg-btn" >
+                <a href="registration" class="btn btn-outline-secondary" role="button" sec:authorize="!isAuthenticated()">Registration</a>
             </div>
 
-<!--            <h1 th:inline="text">-->
-<!--                <span th:remove="tag" sec:authentication="name">thymeleaf</span>-->
-<!--            </h1>-->
+            <button th:inline="text" class="btn btn-outline-secondary" id="user_info">
+                <span th:remove="tag"  sec:authentication="name" sec:authorize="isAuthenticated()"></span>
+            </button>
+
+            <form  th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+
+                <button type="submit" class="btn btn-light" value="Sign Out" sec:authorize="isAuthenticated()">
+                    Sign Out
+                </button>
+
+            </form>
+
+            <div class="btn" sec:authorize="isAuthenticated()" sec:authorize="hasRole('ADMIN')">
+                <a href="registration" class="btn btn-outline-secondary" role="button" sec:authorize="!isAuthenticated()">Users List</a>
+            </div>
+
+            <div th:if="${param.logout}" class="alert alert-dark" role="alert">
+                You have been logged out.
+            </div>
 
         </div>
     </div>

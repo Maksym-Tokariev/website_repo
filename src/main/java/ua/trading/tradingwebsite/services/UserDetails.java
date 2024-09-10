@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import ua.trading.tradingwebsite.models.User;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 @AllArgsConstructor
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
@@ -14,7 +14,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return Collections.singleton(user.getRole());
     }
 
     @Override

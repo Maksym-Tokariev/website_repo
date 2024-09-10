@@ -1,7 +1,6 @@
 package ua.trading.tradingwebsite.services;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,11 +49,13 @@ public class UserService {
 
         if (user == null)
             return false;
+        else {
 
-        user.setActivationCode(null);
+            user.setActivationCode(null);
 
-        userRepository.save(user);
+            userRepository.save(user);
 
-        return false;
+            return true;
+        }
     }
 }

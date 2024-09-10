@@ -18,10 +18,6 @@
                 margin: 10% 30%;
             }
 
-            /*body {*/
-            /*    background: linear-gradient(to right, #b5b6b7, #343a40);*/
-            /*}*/
-
             .btn {
                 margin-left: 3%;
                 margin-top: 1%;
@@ -34,38 +30,19 @@
     <header>
         <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
             <a href="home" type="button" class="btn btn-secondary">To main page</a>
-
+            <a href="login" type="button" class="btn btn-secondary">Sign In</a>
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="home#contacts">Support</a>
             </nav>
 
         </div>
     </header>
-        <div class="container marketing" id="log-form">
-            <form method="post" th:action="@{/login}">
 
-                <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="username">
-                </div>
-
-                <div class="mb-3">
-                    <label for="pwd" class="form-label">Password:</label>
-                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
-                </div>
-
-                <div th:if="${message}">
-                    <div class="alert" th:text="${message}"></div>
-                </div>
-
-                <button type="submit" class="btn btn-primary" value="Sign In">
-                    Submit
-                </button>
-
-                <a type="button" class="btn btn-secondary" href="registration">
-                    Registration
-                </a>
-            </form>
+        <div class="container">
+            <div th:if="${message}">
+                <div class="alert alert-light" role="alert" th:text="${message}"></div>
+            </div>
         </div>
+
     </body>
 </html>
