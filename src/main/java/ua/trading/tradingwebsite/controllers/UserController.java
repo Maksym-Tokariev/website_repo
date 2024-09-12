@@ -1,6 +1,7 @@
 package ua.trading.tradingwebsite.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,8 @@ public class UserController {
 
     private UserRepository userRepository;
 
-    @GetMapping("/user")
+    @GetMapping("/users")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String user(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("user", user);
         return "userList";

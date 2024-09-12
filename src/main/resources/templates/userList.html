@@ -45,8 +45,8 @@
       </thead>
       <tbody>
         <tr th:each="users : ${user}">
-          <td><span th:text="${user.name}"></span></td>
-          <td><span th:text="${user.email}"></span></td>
+          <td><span th:text="${user.getName()}"></span></td>
+          <td><span th:text="${user.getEmail()}"></span></td>
           <td><span th:text="${user.role}"></span></td>
         </tr>
       </tbody>

@@ -5,7 +5,6 @@ import org.springframework.security.core.GrantedAuthority;
 import ua.trading.tradingwebsite.models.User;
 
 import java.util.Collection;
-import java.util.Collections;
 
 @AllArgsConstructor
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
@@ -14,7 +13,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(user.getRole());
+        return user.getRole();
     }
 
     @Override
@@ -44,6 +43,6 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return user.isActive();
     }
 }

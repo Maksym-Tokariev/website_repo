@@ -48,9 +48,9 @@ public class RegistrationController {
         }
 
         mailSenderService.sendMail(
-                "paranoid063@gmail.com",
+                user.getEmail(),
                 "Registration confirm",
-                "Hi" + user.getName() + "!"
+                user.getName() + "was registered."
         );
 
         userService.createUser(user);
@@ -59,7 +59,7 @@ public class RegistrationController {
     }
 
     @GetMapping("/activate/{code}")
-    public String activate(Model model, @PathVariable String code) {
+    public String activate(User user, Model model, @PathVariable String code) {
         boolean isActivated = userService.activateCode(code);
 
         if (isActivated)

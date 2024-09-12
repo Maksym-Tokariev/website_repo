@@ -4,6 +4,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users_t")
@@ -30,8 +35,19 @@ public class User {
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
 
+    private boolean active;
+
     private String activationCode;
 
-    private Role role = Role.USER;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> role = new HashSet<>();
 
+    private LocalDateTime dateOfRegistration;
+
+    @PrePersist
+    private void init() {
+        dateOfRegistration = LocalDateTime.now();
+    }
 }

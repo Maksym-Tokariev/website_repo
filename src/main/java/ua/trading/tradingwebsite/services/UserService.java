@@ -1,10 +1,13 @@
 package ua.trading.tradingwebsite.services;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import ua.trading.tradingwebsite.models.Role;
 import ua.trading.tradingwebsite.models.User;
 import ua.trading.tradingwebsite.repository.UserRepository;
 
@@ -15,6 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserService {
 
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
     private UserRepository userRepository;
 
     private MailSenderService mailSenderService;
@@ -27,7 +31,9 @@ public class UserService {
 
         user.setPassword(encoder().encode(user.getPassword()));
         user.setActivationCode(UUID.randomUUID().toString());
+        user.getRole().add(Role.USER);
         userRepository.save(user);
+        log.info("Saved User with email: {}", user.getEmail());
 
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
@@ -52,6 +58,7 @@ public class UserService {
         else {
 
             user.setActivationCode(null);
+            user.setActive(true);
 
             userRepository.save(user);
 
