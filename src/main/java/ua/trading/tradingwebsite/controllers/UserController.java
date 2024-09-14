@@ -5,20 +5,22 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import ua.trading.tradingwebsite.models.User;
-import ua.trading.tradingwebsite.repository.UserRepository;
+import ua.trading.tradingwebsite.services.UserService;
+
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class UserController {
 
-    private UserRepository userRepository;
+    private UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping("/user/all")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String user(@ModelAttribute("user") User user, Model model) {
-        model.addAttribute("user", user);
+    public String user(Model model) {
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
         return "userList";
     }
 }

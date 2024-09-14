@@ -47,12 +47,6 @@ public class RegistrationController {
             return "registration";
         }
 
-        mailSenderService.sendMail(
-                user.getEmail(),
-                "Registration confirm",
-                user.getName() + "was registered."
-        );
-
         userService.createUser(user);
 
         return "redirect:/activate";
@@ -62,8 +56,14 @@ public class RegistrationController {
     public String activate(User user, Model model, @PathVariable String code) {
         boolean isActivated = userService.activateCode(code);
 
-        if (isActivated)
+        if (isActivated) {
             model.addAttribute("message", "User successfully activated");
+            mailSenderService.sendMail(
+                    user.getEmail(),
+                    "Registration confirm",
+                    user.getName() + " was registered."
+            );
+        }
         else
             model.addAttribute("message", "Activation failed");
 

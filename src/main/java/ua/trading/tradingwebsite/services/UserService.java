@@ -11,6 +11,7 @@ import ua.trading.tradingwebsite.models.Role;
 import ua.trading.tradingwebsite.models.User;
 import ua.trading.tradingwebsite.repository.UserRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,6 +20,7 @@ import java.util.UUID;
 public class UserService {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
+
     private UserRepository userRepository;
 
     private MailSenderService mailSenderService;
@@ -37,7 +39,7 @@ public class UserService {
 
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
-                    "Hello, %s \n" +
+                    "Hello, " + user.getName() + " \n" +
                             "Visit next link: http://localhost:8083/activate/%s",
                     user.getEmail(), user.getActivationCode()
             );
@@ -64,5 +66,9 @@ public class UserService {
 
             return true;
         }
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }

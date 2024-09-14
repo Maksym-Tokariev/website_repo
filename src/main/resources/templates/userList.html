@@ -40,14 +40,18 @@
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Email</th>
+          <th scope="col">Phone number</th>
           <th scope="col">Role</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr th:each="users : ${user}">
-          <td><span th:text="${user.getName()}"></span></td>
-          <td><span th:text="${user.getEmail()}"></span></td>
-          <td><span th:text="${user.role}"></span></td>
+        <tr th:each="user : ${users}">
+          <td><span th:text="${user.name}"></span></td>
+          <td><span th:text="${user.email}"></span></td>
+          <td><span th:text="${user.phoneNumber}"></span></td>
+          <td><span th:text="${user.role}"></span>
+          <td><button class="btn">Edit</button></td>
         </tr>
       </tbody>
     </table>
