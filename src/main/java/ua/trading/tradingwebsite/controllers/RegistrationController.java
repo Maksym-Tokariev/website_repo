@@ -39,6 +39,7 @@ public class RegistrationController {
         }
 
         if (bindingResult.hasErrors()) {
+            bindingResult.getFieldError();
             return "registration";
         }
 
@@ -57,15 +58,15 @@ public class RegistrationController {
         boolean isActivated = userService.activateCode(code);
 
         if (isActivated) {
-            model.addAttribute("message", "User successfully activated");
+            model.addAttribute("messageSuccess", "User successfully activated");
             mailSenderService.sendMail(
                     user.getEmail(),
-                    "Registration confirm",
+                    "Registration confirmed",
                     user.getName() + " was registered."
             );
         }
         else
-            model.addAttribute("message", "Activation failed");
+            model.addAttribute("messageFail", "Activation failed");
 
         return "login";
     }

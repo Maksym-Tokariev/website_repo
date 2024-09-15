@@ -39,6 +39,9 @@ public class SecurityConfig {
                         .anyRequest()
                         .authenticated()
                 )
+                .rememberMe(rememberMe -> rememberMe
+                        .userDetailsService(userDetailsService())
+                )
                 .formLogin(form -> form.loginPage("/login")
                         .defaultSuccessUrl("/home")
                         .permitAll()
